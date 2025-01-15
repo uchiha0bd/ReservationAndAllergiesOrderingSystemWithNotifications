@@ -1,31 +1,28 @@
+// Notification.hpp
 #ifndef NOTIFICATION_HPP
 #define NOTIFICATION_HPP
 
 #include <string>
-using namespace std;
 
 class Notification {
-public:
-    // Gets the current timestamp
-    string getCurrentTime();
+protected:
+    std::string getCurrentTimestamp() const;
 
-    // Virtual destructor for proper cleanup
+public:
     virtual ~Notification() = default;
 
-    // Pure virtual method to send a notification
-    virtual void sendNotification(const string& recipient, const string& content) = 0;
+    // Pure virtual method for sending notifications
+    virtual void sendNotification(const std::string& recipient, const std::string& content) const = 0;
 };
 
 class EmailNotification : public Notification {
 public:
-    // Sends an email notification
-    void sendNotification(const string& email, const string& content) override;
+    void sendNotification(const std::string& email, const std::string& content) const override;
 };
 
 class SMSNotification : public Notification {
 public:
-    // Sends an SMS notification
-    void sendNotification(const string& phoneNumber, const string& content) override;
+    void sendNotification(const std::string& phoneNumber, const std::string& content) const override;
 };
 
 #endif // NOTIFICATION_HPP
