@@ -1,44 +1,17 @@
+// Customer.cpp
 #include "Customer.h"
-#include <iostream>
-using namespace std;
 
-Customer::Customer(string id, string name, string phone, string email, string prefs, string address)
-    : _customerID(id), _name(name), _phoneNumber(phone), _email(email), _preferences(prefs), _address(address) {}
+Customer::Customer(const std::string& id, const std::string& name, const std::string& phone, const std::string& email)
+    : customerID(id), name(name), phone(phone), email(email) {}
 
-void Customer::updateProfile(string updatedInfo) {
-    cout << "Profile updated: " << updatedInfo << endl;
+void Customer::updatePreferences(const std::vector<std::string>& newPreferences) {
+    preferences = newPreferences;
 }
 
-void Customer::viewOrderHistory() {
-    cout << "Order History for " << _name << ":\n";
-    for (const auto& order : _orderHistory) {
-        cout << "- " << order << endl;
-    }
+const std::string& Customer::getName() const {
+    return name;
 }
 
-void Customer::addOrderHistory(string order) {
-    _orderHistory.push_back(order);
-}
-
-string Customer::getCustomerID() const {
-    return _customerID;
-}
-
-string Customer::getAddress() const {
-    return _address;
-}
-
-void Customer::setAddress(const string& address) {
-    _address = address;
-}
-
-void Customer::displayCustomerDetails() const {
-    cout << "Customer ID: " << _customerID << endl;
-    cout << "Name: " << _name << endl;
-    cout << "Phone: " << _phoneNumber << endl;
-    cout << "Email: " << _email << endl;
-    cout << "Preferences: " << _preferences << endl;
-    if (!_address.empty()) {
-        cout << "Address: " << _address << endl;
-    }
+const std::vector<std::string>& Customer::getPreferences() const {
+    return preferences;
 }

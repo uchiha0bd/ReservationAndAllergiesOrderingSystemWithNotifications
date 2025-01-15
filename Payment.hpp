@@ -1,31 +1,27 @@
 #ifndef PAYMENT_HPP
 #define PAYMENT_HPP
 
+#include <iostream>
 #include <string>
-using namespace std;
 
 class Payment {
 public:
-    // Virtual destructor for proper cleanup
     virtual ~Payment() = default;
-
-    // Pure virtual methods for processing and refunding payments
-    virtual void processPayment(int orderID, double amount) = 0;
-    virtual void refundPayment(int paymentID) = 0;
-};
-
-class CreditCardPayment : public Payment {
-public:
-    // Process and refund using credit card
-    void processPayment(int orderID, double amount) override;
-    void refundPayment(int paymentID) override;
+    virtual void processPayment(int orderID, double amount) const = 0;
 };
 
 class CashPayment : public Payment {
 public:
-    // Process and refund using cash
-    void processPayment(int orderID, double amount) override;
-    void refundPayment(int paymentID) override;
+    void processPayment(int orderID, double amount) const override {
+        std::cout << "Processed cash payment for Order #" << orderID << " - Amount: $" << amount << "\n";
+    }
+};
+
+class CreditCardPayment : public Payment {
+public:
+    void processPayment(int orderID, double amount) const override {
+        std::cout << "Processed credit card payment for Order #" << orderID << " - Amount: $" << amount << "\n";
+    }
 };
 
 #endif // PAYMENT_HPP

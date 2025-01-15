@@ -1,56 +1,42 @@
+// Reservation.h
 #ifndef RESERVATION_HPP
 #define RESERVATION_HPP
 
 #include <string>
-#include <vector>
-using namespace std;
 
 class Reservation {
 protected:
-    string _reservationID;
-    string _date;
-    string _time;
-    int _tableNumber;
-    string _status;
-    string _customerID;
+    std::string reservationID;
+    std::string customerID;
+    std::string date;
+    std::string time;
 
 public:
-    // Constructor
-    Reservation(string id, string customerID, string date, string time, int tableNum);
+    Reservation(const std::string& id, const std::string& customer, const std::string& date, const std::string& time);
+    virtual ~Reservation() = default;
 
-    // Methods
-    virtual void createReservation();
-    virtual void updateReservation(string updatedDetails);
-    virtual void cancelReservation();
-
-    // Dynamic availability
-    static vector<string> getAvailableDays();
-    static vector<string> getAvailableTimes();
-
-    // Virtual destructor
-    virtual ~Reservation();
+    virtual void displayReservationDetails() const = 0;
 };
 
 class OnlineReservation : public Reservation {
 private:
-    string _paymentStatus;
+    int tableNumber; // Add tableNumber here
+    std::string paymentStatus;
 
 public:
-    // Constructor
-    OnlineReservation(string id, string customerID, string date, string time, int tableNum, string paymentStatus);
-
-    // Override methods
-    void createReservation() override;
-    void updateReservation(string updatedDetails) override;
+    OnlineReservation(const std::string& id, const std::string& customer, const std::string& date,
+                      const std::string& time, int tableNo, const std::string& paymentStatus);
+    void displayReservationDetails() const override;
 };
 
 class WalkInReservation : public Reservation {
-public:
-    // Constructor
-    WalkInReservation(string id, string customerID, string date, string time, int tableNum);
+private:
+    int tableNumber; // Add tableNumber here
 
-    // Override methods
-    void createReservation() override;
+public:
+    WalkInReservation(const std::string& id, const std::string& customer, const std::string& date,
+                      const std::string& time, int tableNo);
+    void displayReservationDetails() const override;
 };
 
 #endif // RESERVATION_HPP

@@ -1,36 +1,25 @@
+// Order.h
 #ifndef ORDER_HPP
 #define ORDER_HPP
 
 #include <string>
 #include <vector>
-using namespace std;
+#include "MenuItem.h"
 
 class Order {
 protected:
     int orderID;
-    vector<string> items;
+    std::vector<MenuItem> items;
     double totalAmount;
-    string status;
 
 public:
-    // Constructor
-    Order(int id, const vector<string>& orderItems);
-
-    // Virtual Destructor
+    Order(int id);
     virtual ~Order() = default;
 
-    // Getters
-    int getOrderID() const;
-    vector<string> getItems() const;
-    double getTotalAmount() const;
-    string getStatus() const;
-
-    // Operations
-    void updateOrder(const vector<string>& newItems);
-    void cancelOrder();
-
-    // Virtual function to display order details
-    virtual void displayOrderDetails() const;
+    void addItem(const MenuItem& item);
+    double calculateTotal();
+    const std::vector<MenuItem>& getItems() const;
+    virtual void displayOrderDetails() const = 0;
 };
 
 class DineInOrder : public Order {
@@ -38,22 +27,16 @@ private:
     int tableNumber;
 
 public:
-    // Constructor
-    DineInOrder(int id, const vector<string>& orderItems, int tableNo);
-
-    // Override display method
+    DineInOrder(int id, int tableNo);
     void displayOrderDetails() const override;
 };
 
 class DeliveryOrder : public Order {
 private:
-    string deliveryAddress;
+    std::string deliveryAddress;
 
 public:
-    // Constructor
-    DeliveryOrder(int id, const vector<string>& orderItems, const string& address);
-
-    // Override display method
+    DeliveryOrder(int id, const std::string& address);
     void displayOrderDetails() const override;
 };
 
