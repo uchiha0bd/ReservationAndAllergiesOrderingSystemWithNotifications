@@ -85,7 +85,7 @@ int main() {
     getline(cin, preferences);
 
     // Generate unique customer ID
-    static int customerCounter = 1;
+    static int customerCounter = 0;
     string customerID = "C" + to_string(customerCounter++);
 
     // Create Customer instance
